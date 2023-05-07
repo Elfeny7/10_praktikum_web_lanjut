@@ -9,6 +9,9 @@
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
+                    <center>
+                    <li class="list-group-item"><img src="{{asset('storage/'.$Mahasiswa->Image)}}" alt="gambar" width="150" class="mx-auto"></li>
+                    </center>
                     <li class="list-group-item"><b>Nim: </b>{{$Mahasiswa->Nim}}</li>
                     <li class="list-group-item"><b>Nama: </b>{{$Mahasiswa->Nama}}</li>
                     <li class="list-group-item"><b>Kelas: </b>{{$Mahasiswa->Kelas->nama_kelas}}</li>

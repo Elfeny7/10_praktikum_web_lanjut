@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use App\Models\Kelas;
+use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
 {
@@ -67,9 +68,14 @@ class MahasiswaController extends Controller
 
         // Mahasiswa::create($request->all());
 
+        if ($request->file('image')) {
+            $image_name = $request->file('image')->store('images', 'public');
+        }
+
         $mahasiswa = new Mahasiswa;
         $mahasiswa->Nim=$request->get('Nim');
         $mahasiswa->Nama=$request->get('Nama');
+        $mahasiswa->Image=$image_name;
         $mahasiswa->Jurusan=$request->get('Jurusan');
         $mahasiswa->No_Handphone=$request->get('No_Handphone');
         $mahasiswa->Email=$request->get('Email');
@@ -129,7 +135,16 @@ class MahasiswaController extends Controller
             'TanggalLahir' => 'required',
         ]);
         // Mahasiswa::find($Nim)->update($request->all());
+        
+
         $mahasiswa = Mahasiswa::with('kelas')->where('nim', $Nim)->first();
+
+        if($mahasiswa->Image && file_exists(storage_path('app/public/' . $mahasiswa->Image))){
+            Storage::delete('public/' . $mahasiswa->Image);
+        }
+        $image_name = $request->file('image')->store('images', 'public');
+        $mahasiswa->Image = $image_name;
+
         $mahasiswa->Nim=$request->get('Nim');
         $mahasiswa->Nama=$request->get('Nama');
         $mahasiswa->Jurusan=$request->get('Jurusan');

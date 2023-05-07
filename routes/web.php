@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\MahasiswaNilaiController;
 use App\Http\Controllers\ArticleController;
 use Illuminate\Http\Request;
 
@@ -32,3 +32,5 @@ Route::get('/mahasiswa/nilai/{Nim}', [App\Http\Controllers\MahasiswaNilaiControl
 Route::resource('articles', ArticleController::class);
 
 Route::get('/article/cetak_pdf', [App\Http\Controllers\ArticleController::class, 'cetak_pdf']);
+
+Route::get('/mahasiswa/pdf/{Nim}', [App\Http\Controllers\MahasiswaNilaiController::class, 'pdf'])->name('cetak');
